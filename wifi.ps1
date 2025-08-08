@@ -10,13 +10,15 @@ if ($profiles.Count -eq 0) {
     exit
 }
 
-foreach ($profile in $profiles) {
-    Write-Output "Profile: $profile"
+foreach ($prof in $profiles) {
+    Write-Output "Profile: $prof"
     # Get the key (password) for the profile
-    $key = netsh wlan show profile name="$profile" key=clear | Select-String "Key Content" | ForEach-Object {
+    $key = netsh wlan show profile name="$prof" key=clear | Select-String "Key Content" | ForEach-Object {
         ($_ -split ":")[1].Trim()
     }
 
+    Write-Output "------------------------------"
+    
     if ($key) {
         Write-Output "Password: $key"
     } else {
