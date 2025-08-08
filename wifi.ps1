@@ -16,8 +16,6 @@ foreach ($prof in $profiles) {
     $key = netsh wlan show profile name="$prof" key=clear | Select-String "Key Content" | ForEach-Object {
         ($_ -split ":")[1].Trim()
     }
-
-    Write-Output "------------------------------"
     
     if ($key) {
         Write-Output "Password: $key"
